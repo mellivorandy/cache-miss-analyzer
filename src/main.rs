@@ -1,5 +1,6 @@
 use std::env;
-use std::fs;
+use std::fs::File;
+use std::io::{BufRead, BufReader};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
@@ -24,8 +25,21 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .parse()
         .expect("Please provide a valid set degree (1/2/4/8)\n");
 
-    let content = fs::read_to_string(trace_file_name)
-        .expect("Failed to read the file\n");
+    // open file and process each line
+    let file = File::open(trace_file_name)
+        .expect("Failed to open the file\n");
+    
+    // use BufReader to improve the speed of reading trace file
+    let reader = BufReader::new(file);
+
+    // process the lines
+    for line_result in reader.lines() {
+        let line = line_result?;
+        let mem_addr = line.trim();
+        let no_prefix_addr = mem_addr.trim_start_matches("0x");
+        let addr_dec = u64::from_str_radix(&no_prefix_addr, 16);
+        println!("{:?}", addr_dec);
+    }
 
     Ok(())
 }
