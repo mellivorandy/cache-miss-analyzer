@@ -1,2 +1,3 @@
 *.rs text eol=lf
 Cargo.toml text eol=lf
+trace.txt text eol=lf
