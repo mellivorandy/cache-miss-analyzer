@@ -2,6 +2,9 @@ use std::env;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
+mod lru_cache;
+mod set;
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
 
@@ -26,8 +29,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .expect("Please provide a valid set degree (1/2/4/8)\n");
 
     let block_size_byte = block_size << 2;
-    let cache_block_num = (cache_size << 10) / block_size_byte as u32;
-    let set_num = cache_block_num / set_degree as u32;
+    let cache_block_num = (cache_size << 10) / (block_size_byte as u32);
+    let set_num = cache_block_num / (set_degree as u32);
 
     // open file and process each line
     let file = File::open(trace_file_name)
