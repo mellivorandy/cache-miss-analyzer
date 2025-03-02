@@ -20,4 +20,12 @@ impl LRUCache {
             miss: 0,
         }
     }
+
+    fn access() {
+
+    }
+
+    fn count_miss_rate() {
+        
+    }
 }
