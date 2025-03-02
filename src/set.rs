@@ -5,14 +5,14 @@ use std::cell::RefCell;
 struct Node {
     tag: u32,
     valid: bool,
-    prev: Weak<RefCell<Node>>,
     next: Option<Rc<RefCell<Node>>>,
+    prev: Option<Weak<RefCell<Node>>>,
 }
 
-struct Set {
+pub struct Set {
 
 }
 
 impl Set {
-    
+
 }
