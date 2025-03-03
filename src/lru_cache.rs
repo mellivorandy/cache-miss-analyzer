@@ -8,8 +8,6 @@ struct LRUCache {
 
 impl LRUCache {
     fn new(set_num: u32, set_degree: u32) -> Self {
-        let mut sets = Vec::new();
-
         let sets = (0..set_num)
             .map(|_| Set::new(set_degree))
             .collect::<Vec<_>>();
