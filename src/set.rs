@@ -60,6 +60,7 @@ impl Set {
     }
 
     // if no space to save the tag, pop the LRU
+    // dynamic method
     pub fn put(&mut self, tag: u32) {
         if let Some(node_rc) = self.map.get(&tag) {
             // hit
