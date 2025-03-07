@@ -26,24 +26,24 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let block_size: u32 = args[3]
         .parse()
         .expect("Please provide a valid block size (Word)\n");
-    let set_degree: u32 = args[4]
+    let set_degree: usize = args[4]
         .parse()
         .expect("Please provide a valid set degree (1/2/4/8)\n");
 
     let mut lru_cache = LRUCache::new(cache_size, block_size, set_degree);
 
-    // open file and process each line
-    let file = File::open(trace_file_name).expect("Failed to open the file\n");
-    
-    // use BufReader to improve the speed of reading trace file
+    // open file
+    let file = File::open(trace_file_name).expect("Failed to open file\n");
     let reader = BufReader::new(file);
 
-    // process the lines
     for line_result in reader.lines() {
         let line = line_result?;
         let mem_addr = line.trim();
+
+        // remove prefix and convert hexadecimal to decimal
         let no_prefix_addr = mem_addr.trim_start_matches("0x");
         let addr_dec = u32::from_str_radix(&no_prefix_addr, 16).unwrap();
+        
         lru_cache.access(addr_dec);
     }
 
