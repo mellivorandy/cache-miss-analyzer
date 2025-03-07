@@ -13,6 +13,37 @@ pub struct Node {
     prev: Option<Weak<RefCell<Node>>>,
 }
 
+impl Node {
+    fn get_tag(&self) -> Option<u32> {
+        match &self.data {
+            NodeData::Real { tag, .. } => Some(*tag),
+            NodeData::Dummy => None,
+        }
+    }
+
+    fn is_valid(&self) -> bool {
+        match &self.data {
+            NodeData::Real { valid, .. } => *valid,
+            NodeData::Dummy => false,
+        }
+    }
+
+    fn set_valid(&mut self, valid_flag: bool) {
+        if let NodeData::Real { valid, .. } = &mut self.data {
+            *valid = valid_flag;
+        }
+    }
+
+    fn update_tag(&mut self, new_tag: u32) -> Option<u32> {
+        if let NodeData::Real { tag, .. } = &mut self.data {
+            let old_tag = *tag;
+            *tag = new_tag;
+            return Some(old_tag);
+        }
+        None
+    }
+}
+
 pub struct Set {
     capacity: usize,
     size: usize,
@@ -24,7 +55,6 @@ pub struct Set {
 }
 
 impl Set {
-    /// creates a new Set with capacity.
     pub fn new(capacity: usize) -> Self {
         let head = Rc::new(RefCell::new(Node {
             data: NodeData::Dummy,
@@ -53,40 +83,72 @@ impl Set {
     // else return false
     pub fn get(&mut self, tag: u32) -> bool {
         if let Some(node_rc) = self.map.get(&tag) {
-            self.update_node(Rc::clone(node_rc));
-            return true;
+            if node_rc.borrow().is_valid() {
+                self.update_node(Rc::clone(node_rc));
+                return true;
+            }
         }
         false
     }
 
-    // if no space to save the tag, pop the LRU
-    // dynamic method
     pub fn put(&mut self, tag: u32) {
         if let Some(node_rc) = self.map.get(&tag) {
-            // hit
-            self.update_node(node_rc.clone());
-        } else {
-            // miss
-            let new_node = Rc::new(RefCell::new(Node {
-                data: NodeData::Real { valid: true, tag },
-                next: None,
-                prev: Some(Weak::new()),
-            }));
-
-            // save to the map
-            self.map.insert(tag, Rc::clone(&new_node));
-            self.insert_at_front(Rc::clone(&new_node));
-            self.size += 1;
-
-            if self.size > self.capacity {
-                if let Some(removed) = self.evict() {
-                    if let NodeData::Real { tag: old_tag, .. } = removed.borrow().data {
-                        self.map.remove(&old_tag);
-                        self.size -= 1;
-                    }
+            {
+                // case 1: tag already exists in the cache
+                let mut node = node_rc.borrow_mut();
+                node.set_valid(true);
+            }
+            self.update_node(Rc::clone(node_rc));
+            return;
+        }
+    
+        // case 2: tag does not exist — check for reusable invalid node
+        if let Some((old_tag, node_rc)) = self.find_invalid_node() {
+            self.map.remove(&old_tag);
+    
+            {
+                let mut node = node_rc.borrow_mut();
+                node.update_tag(tag);
+                node.set_valid(true);
+            }
+    
+            // insert new tag into map and move to head
+            self.map.insert(tag, Rc::clone(&node_rc));
+            self.update_node(node_rc);
+            return;
+        }
+    
+        // case 3: no reusable invalid node found — need to create a new node
+        let new_node = Rc::new(RefCell::new(Node {
+            data: NodeData::Real { tag, valid: true },
+            prev: Some(Weak::new()),
+            next: None,
+        }));
+    
+        // add the new node to the map and move to head
+        self.map.insert(tag, Rc::clone(&new_node));
+        self.insert_at_front(Rc::clone(&new_node));
+    
+        self.size += 1;
+    
+        // case 4: cache size exceeds capacity => evict the LRU node
+        if self.size > self.capacity {
+            if let Some(removed_node) = self.evict() {
+                if let Some(old_tag) = removed_node.borrow().get_tag() {
+                    self.map.remove(&old_tag);
+                    self.size -= 1;
                 }
             }
         }
+    }
+    
+    fn find_invalid_node(&self) -> Option<(u32, Rc<RefCell<Node>>)> {
+        for (&tag, node_rc) in &self.map {
+            if !node_rc.borrow().is_valid() {
+                return Some((tag, Rc::clone(node_rc)));
+            }
+        }
+        None
     }
 
     pub fn insert_at_front(&self, node: Rc<RefCell<Node>>) {
