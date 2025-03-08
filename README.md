@@ -39,27 +39,23 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 <br><br>
 
 - Each block contains multiple bytes, so we determine which memory block the address belongs to:
-$$
-\text{Memory Block Index} = \frac{\text{Memory Address}}{\text{Block Size}}
-$$
+<br><br>
+![Formula](https://latex.codecogs.com/png.latex?\text{Memory%20Block%20Index}%20=%20\frac{\text{Memory%20Address}}{\text{Block%20Size}})
 <br><br>
 
 - Determine where in the cache this block should be mapped:
-$$
-\text{Set Index} = \text{Memory Block Number} \mod \text{Number of Sets}
-$$
+<br><br>
+![Formula](https://latex.codecogs.com/png.latex?\text{Set%20Index}%20=%20\text{Memory%20Block%20Index}%20\mod%20\text{Number%20of%20Sets})
 <br><br>
 
 - Compute the tag:
-$$
-\text{Tag} = \frac{\text{Memory Block Number}}{\text{Number of Sets}}
-$$
+<br><br>
+![Formula](https://latex.codecogs.com/png.latex?\text{Tag}%20=%20\frac{\text{Memory%20Block%20Index}}{\text{Number%20of%20Sets}})
 <br><br>
 
 - After processing all memory accesses in trace file, compute:
-$$
-\text{Miss Rate} = \frac{\text{Total Misses}}{\text{Total Memory Accesses}} \times 100\%
-$$
+<br><br>
+![Formula](https://latex.codecogs.com/png.latex?\text{Miss%20Rate}%20=%20\frac{\text{Total%20Misses}}{\text{Total%20Memory%20Accesses}}%20\times%20100\%25)
 <br><br>
 
 2. **HashMap + Doubly Linked List**  
