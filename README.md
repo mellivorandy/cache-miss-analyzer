@@ -2,12 +2,9 @@
 
 <br>
 
-[<img alt="github" src="https://img.shields.io/badge/mellivorandy-cache--miss--analyzer?style=for-the-badge&logo=GitHub&label=GitHub&color=%2387CEEB" height="20">
-](https://github.com/mellivorandy)
-[<img alt="ci" src="https://github.com/mellivorandy/cache-miss-analyzer/actions/workflows/CI.yml/badge.svg" height="20">
-](https://github.com/mellivorandy/cache-miss-analyzer/actions)
-[<img alt="license" src="https://img.shields.io/github/license/mellivorandy/cache-miss-analyzer?style=for-the-badge&logo=GITHUB&color=light%20green" height="20">
-](https://github.com/mellivorandy/cache-miss-analyzer?tab=MIT-1-ov-file#readme)
+[<img alt="github" src="https://img.shields.io/badge/mellivorandy-cache--miss--analyzer?style=for-the-badge&logo=GitHub&label=GitHub&color=%2387CEEB" height="20">](https://github.com/mellivorandy)
+[<img alt="ci" src="https://github.com/mellivorandy/cache-miss-analyzer/actions/workflows/CI.yml/badge.svg" height="20">](https://github.com/mellivorandy/cache-miss-analyzer/actions)
+[<img alt="license" src="https://img.shields.io/github/license/mellivorandy/cache-miss-analyzer?style=for-the-badge&logo=GITHUB&color=light%20green" height="20">](https://github.com/mellivorandy/cache-miss-analyzer?tab=MIT-1-ov-file#readme)
 
 
 
