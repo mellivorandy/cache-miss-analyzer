@@ -29,15 +29,13 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 <br><br>
 
 - Compute the total number of cache blocks:
-$$
-\text{Total Cache Blocks} = \frac{\text{Cache Size}}{\text{Block Size}}
-$$
+<br><br>
+![Formula](https://latex.codecogs.com/png.latex?%5Ctext%7BTotal%20Cache%20Blocks%7D%20%3D%20%5Cfrac%7B%5Ctext%7BCache%20Size%7D%7D%7B%5Ctext%7BBlock%20Size%7D%7D)
 <br><br>
 
 - Compute the number of sets (each set holds **set\_degree** (N-Way) blocks):
-$$
-\text{Number of Sets} = \frac{\text{Total Cache Blocks}}{\text{Set Degree}}
-$$
+<br><br>
+![Formula](https://latex.codecogs.com/png.latex?\text{Number%20of%20Sets}%20=%20\frac{\text{Total%20Cache%20Blocks}}{\text{Set%20Degree}})
 <br><br>
 
 - Each block contains multiple bytes, so we determine which memory block the address belongs to:
