@@ -1,11 +1,11 @@
 use crate::set::Set;
 
 pub struct LRUCache {
-    sets: Vec<Set>,
-    block_size_byte: u32,
-    set_num: u32,
-    hit: u32,
-    miss: u32,
+    pub sets: Vec<Set>,
+    pub block_size_byte: u32,
+    pub set_num: u32,
+    pub hit: u32,
+    pub miss: u32,
 }
 
 impl LRUCache {
