@@ -49,7 +49,7 @@ pub struct Set {
     size: usize,
     map: HashMap<u32, Rc<RefCell<Node>>>,
 
-    // dummy head, tail
+    // dummy
     head: Rc<RefCell<Node>>,
     tail: Rc<RefCell<Node>>,
 }
@@ -102,7 +102,7 @@ impl Set {
             return;
         }
     
-        // case 2: tag does not exist — check for reusable invalid node
+        // case 2: tag does not exist => check for reusable invalid node
         if let Some((old_tag, node_rc)) = self.find_invalid_node() {
             self.map.remove(&old_tag);
     
@@ -118,7 +118,7 @@ impl Set {
             return;
         }
     
-        // case 3: no reusable invalid node found — need to create a new node
+        // case 3: no reusable invalid node found => create a new node
         let new_node = Rc::new(RefCell::new(Node {
             data: NodeData::Real { tag, valid: true },
             prev: Some(Weak::new()),
@@ -127,8 +127,8 @@ impl Set {
     
         // add the new node to the map and move to head
         self.map.insert(tag, Rc::clone(&new_node));
+        
         self.insert_at_front(Rc::clone(&new_node));
-    
         self.size += 1;
     
         // case 4: cache size exceeds capacity => evict the LRU node
@@ -173,10 +173,9 @@ impl Set {
         let next_rc_opt = node.borrow().next.clone();
 
         if let Some(prev_rc) = prev_rc_opt.clone() {
-            if let Some(next_rc) = next_rc_opt.clone() {
-                prev_rc.borrow_mut().next = Some(next_rc.clone());
-            } else {
-                prev_rc.borrow_mut().next = None;
+            match next_rc_opt.clone() {
+                Some(next_rc) => prev_rc.borrow_mut().next = Some(next_rc.clone()),
+                None => prev_rc.borrow_mut().next = None,
             }
         }
 
@@ -207,5 +206,24 @@ impl Set {
         }
 
         Some(last_rc)
+    }
+
+    #[cfg(test)]
+    pub fn debug_list(&self) -> Vec<u32> {
+        let mut result = Vec::new();
+        let mut current = self.head.borrow().next.clone();
+
+        while let Some(node_rc) = current {
+            if Rc::ptr_eq(&node_rc, &self.tail) {
+                break;
+            }
+            if let Some(tag) = node_rc.borrow().get_tag() {
+                if node_rc.borrow().is_valid() {
+                    result.push(tag);
+                }
+            }
+            current = node_rc.borrow().next.clone();
+        }
+        result
     }
 }
