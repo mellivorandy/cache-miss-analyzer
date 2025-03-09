@@ -102,7 +102,7 @@ impl Set {
             return;
         }
     
-        // case 2: tag does not exist => check for reusable invalid node
+        // case 2: tag does not exist => check for invalid node
         if let Some((old_tag, node_rc)) = self.find_invalid_node() {
             self.map.remove(&old_tag);
     
@@ -118,7 +118,7 @@ impl Set {
             return;
         }
     
-        // case 3: no reusable invalid node found => create a new node
+        // case 3: no invalid node found => create a new node
         let new_node = Rc::new(RefCell::new(Node {
             data: NodeData::Real { tag, valid: true },
             prev: Some(Weak::new()),
