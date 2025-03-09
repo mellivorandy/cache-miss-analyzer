@@ -95,5 +95,7 @@ mod tests {
                 println!("Set {} => {:?}", i, list);
             }
         }
+
+        println!();
     }
 }
