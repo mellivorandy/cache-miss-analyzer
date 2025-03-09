@@ -49,7 +49,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     let miss_rate = lru_cache.count_miss_rate();
-    println!("Miss Rate = {:.5}", miss_rate);
+    println!("\nMiss Rate = {:.5}\n", miss_rate);
 
     Ok(())
 }
