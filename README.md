@@ -1,4 +1,4 @@
-# cache-miss-analyzer &mdash; a high-performance Cache Simulator with LRU Policy
+# cache-miss-analyzer &mdash; a high-performance cache simulator with LRU policy
 
 <br>
 
@@ -33,7 +33,7 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 ![Formula](https://latex.codecogs.com/png.latex?%5Ctext%7BTotal%20Cache%20Blocks%7D%20%3D%20%5Cfrac%7B%5Ctext%7BCache%20Size%7D%7D%7B%5Ctext%7BBlock%20Size%7D%7D)
 <br><br>
 
-- Compute the number of sets (each set holds **set\_degree** (N-Way) blocks):
+- Compute the number of sets (each set holds set_degree (N-Way) blocks):
 <br><br>
 ![Formula](https://latex.codecogs.com/png.latex?\text{Number%20of%20Sets}%20=%20\frac{\text{Total%20Cache%20Blocks}}{\text{Set%20Degree}})
 <br><br>
@@ -60,7 +60,7 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 
 2. **HashMap + Doubly Linked List**  
    - **HashMap**  
-     - Maps a `(tag)` inside that set to a node in the doubly linked list. 
+     - Maps a `tag` inside that set to a node in the doubly linked list. 
  
      - This allows O(1) lookup to find whether a memory block is currently in the cache.  
    
@@ -74,18 +74,18 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
      - Why using a doubly linked list? Because when tracking usage order in the lists, removing a node from the middle or moving a node to the front are needed frequently. A doubly linked list allows you to perform the operations mentioned above in O(1). By contrast, a singly linked list requires O(n) time to find the predecessor before removal.
     
     **Dummy Head and Tail**  
-    - To simplify insertions and deletions, each set maintains two **dummy nodes**, namely the **dummy head** and the **dummy tail**. The dummy head ensures that there is always a first node (most recently used item), whereas the dummy tail ensures that there is always a last node (least recently used item). 
+    - To simplify insertions and deletions, each set maintains two dummy nodes, namely the **dummy head** and the **dummy tail**. The dummy head ensures that there is always a first node (most recently used item), whereas the dummy tail ensures that there is always a last node (least recently used item). 
       
     - Without dummy nodes, inserting or removing from the beginning or end of the list would require additional boundary checks.
   
 3. **Valid Bit Mechanism**  
-   - Originally, this project did not preallocate any invalid blocks. Instead, it simply builds a new Node on every miss if `size < capacity`. If `size == capacity` (the set is full), it **evicts** the least recently used node (via `evict()` method) before inserting the new one.
+   - Originally, this project did not preallocate any invalid blocks. Instead, it simply builds a new Node on every miss if `size < capacity`. If `size == capacity` (the set is full), it evicts the least recently used node (via `evict()` method) before inserting the new one.
 
-    - In other words, the design **omits** a `valid = false` state, relying on the condition `size < capacity` to detect free capacity. Each Miss either:
+    - In other words, the design omits a `valid = false` state, relying on the condition `size < capacity` to detect free capacity. Each Miss either:
         - Creates a new node if not at capacity, or  
         - Evicts the oldest node if at capacity.
 
-    - According to project requirement, checking the validation of each cache block is needed when accessing. As a result, I modify `get`, `put` and add some helper methods. If a block is `valid=false`, we can fill it without evicting another block; if all blocks are `valid=true`, we perform an LRU eviction.
+    - According to project requirement, checking the validation of each cache block is needed when accessing. As a result, I modified `get`, `put` and add some helper methods. If a block is `valid=false`, we can fill it without evicting another block; if all blocks are `valid=true`, we perform an LRU eviction.
 
     - Check out the implementation of `put` method at commit [6d00f29](https://github.com/mellivorandy/cache-miss-analyzer/commit/6d00f29e82e2023f5cf73a92751488cda5d2a2ec) at line 63.
 ---
@@ -107,7 +107,7 @@ Clone the repository
 git clone https://github.com/mellivorandy/cache-miss-analyzer.git
 ```
 
-From the project root, run
+From the project root, run:
 
 ```Rust
 cargo build
@@ -119,7 +119,7 @@ To execute the program with custom arguments, use the following command:
 cargo run -- <trace_file_name> <cache_size> <block_size> <set_degree>
 ```
 
-- <trace_file_name>: The name of the trace file to be analyzed.
+- <trace_file_name>: The path of the trace file to be analyzed.
 - <cache_size>: The total size of the cache (in KByte).
 - <block_size>: The size of each block (in Words).
 - <set_degree>: The associativity (number of blocks per set).
@@ -127,6 +127,16 @@ cargo run -- <trace_file_name> <cache_size> <block_size> <set_degree>
 <br>
 
 In this project structure, the trace.txt file is located in cache-miss-analyzer/data, change the path if trace file is moved or new trace files are added.
+
+<br>
+
+Note: If the file path remains unchanged, use the path as given. Simply copy and paste the following command into your terminal:
+
+#### Example command
+
+```Rust
+cargo run data/trace.txt 1024 8 2
+```
 
 <br>
 
@@ -140,7 +150,9 @@ A `[cfg(test)]` module is included, referencing a trace.txt file for unit tests.
 cargo test -- --nocapture
 ```
 
-- Change arguments at src/main.rs:71:39 for different cache configurations.
+This prints the non-empty sets.
+
+- Change arguments at src/main.rs:71:39 for different cache configurations. <br><br>
 - Remove if expressions at src/main.rs:94:13 as you want to print all sets.
 
 <br>
