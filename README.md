@@ -60,7 +60,7 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 
 2. **HashMap + Doubly Linked List**  
    - **HashMap**  
-     - Maps a `tag` inside that set to a node in the doubly linked list. 
+     - Maps a **tag** inside that set to a node in the doubly linked list. 
  
      - This allows O(1) lookup to find whether a memory block is currently in the cache.  
    
@@ -85,7 +85,7 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
         - Creates a new node if not at capacity, or  
         - Evicts the oldest node if at capacity.
 
-    - According to project requirement, checking the validation of each cache block is needed when accessing. As a result, I modified `get`, `put` and add some helper methods. If a block is `valid=false`, we can fill it without evicting another block; if all blocks are `valid=true`, we perform an LRU eviction.
+    - According to project requirement, checking the validation of each cache block is needed when accessing. As a result, I modified `get`, `put` and added some helper methods. If a block is `valid=false`, we can fill it without evicting another block; if all blocks are `valid=true`, we perform an LRU eviction.
 
     - Check out the implementation of `put` method at commit [6d00f29](https://github.com/mellivorandy/cache-miss-analyzer/commit/6d00f29e82e2023f5cf73a92751488cda5d2a2ec) at line 63.
 ---
