@@ -167,12 +167,9 @@ impl Set {
     }
     
     fn find_invalid_node_tag(&self) -> Option<u32> {
-        for (&tag, node_rc) in &self.map {
-            if !node_rc.borrow().is_valid() {
-                return Some(tag);
-            }
-        }
-        None
+        self.map.iter()
+            .find(|(_, node_rc)| !node_rc.borrow().is_valid())
+            .map(|(&tag, _)| tag)
     }
 
     pub fn insert_at_front(&self, node: Rc<RefCell<Node>>) {
