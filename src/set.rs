@@ -70,13 +70,30 @@ impl Set {
         // link head and tail
         head.borrow_mut().next = Some(Rc::clone(&tail));
 
-        Set {
+        let mut set = Set {
             capacity,
             size: 0,
             map: HashMap::new(),
             head,
             tail,
+        };
+
+        // initialize all cache blocks with valid = false
+        for i in 0..capacity {
+            let tag = i as u32;
+            let new_node = Rc::new(RefCell::new(Node {
+                data: NodeData::Real { tag, valid: false },
+                prev: Some(Weak::new()),
+                next: None,
+            }));
+            
+            set.map.insert(tag, Rc::clone(&new_node));
+            
+            set.insert_at_front(Rc::clone(&new_node));
+            set.size += 1;
         }
+
+        set
     }
 
     // if hit, move node to the head 
@@ -103,49 +120,56 @@ impl Set {
         }
     
         // case 2: tag does not exist => check for invalid node
-        if let Some((old_tag, node_rc)) = self.find_invalid_node() {
-            self.map.remove(&old_tag);
-    
+        if let Some(invalid_tag) = self.find_invalid_node_tag() {
+            let node_rc = self.map.remove(&invalid_tag).unwrap();
             {
                 let mut node = node_rc.borrow_mut();
                 node.update_tag(tag);
                 node.set_valid(true);
             }
-    
+
             // insert new tag into map and move to head
             self.map.insert(tag, Rc::clone(&node_rc));
-            self.update_node(node_rc);
+            self.update_node(Rc::clone(&node_rc));
             return;
         }
-    
-        // case 3: no invalid node found => create a new node
-        let new_node = Rc::new(RefCell::new(Node {
-            data: NodeData::Real { tag, valid: true },
-            prev: Some(Weak::new()),
-            next: None,
-        }));
-    
-        // add the new node to the map and move to head
-        self.map.insert(tag, Rc::clone(&new_node));
         
-        self.insert_at_front(Rc::clone(&new_node));
-        self.size += 1;
-    
-        // case 4: cache size exceeds capacity => evict the LRU node
-        if self.size > self.capacity {
-            if let Some(removed_node) = self.evict() {
-                if let Some(old_tag) = removed_node.borrow().get_tag() {
-                    self.map.remove(&old_tag);
-                    self.size -= 1;
+        // case 3: no invalid node found => create a new node
+        if let Some(removed_node) = self.evict() {
+            let old_tag = removed_node.borrow().get_tag();
+            
+            if let Some(old_tag) = old_tag {
+                self.map.remove(&old_tag);
+                
+                {
+                    let mut node = removed_node.borrow_mut();
+                    node.update_tag(tag);
+                    node.set_valid(true);
                 }
+                
+                self.map.insert(tag, Rc::clone(&removed_node));
+                self.insert_at_front(Rc::clone(&removed_node));
             }
+        }
+
+        if self.size < self.capacity {
+            let new_node = Rc::new(RefCell::new(Node {
+                data: NodeData::Real { tag, valid: true },
+                prev: None,
+                next: None,
+            }));
+
+            self.map.insert(tag, Rc::clone(&new_node));
+            self.insert_at_front(Rc::clone(&new_node));
+            self.size += 1;
+            return;
         }
     }
     
-    fn find_invalid_node(&self) -> Option<(u32, Rc<RefCell<Node>>)> {
+    fn find_invalid_node_tag(&self) -> Option<u32> {
         for (&tag, node_rc) in &self.map {
             if !node_rc.borrow().is_valid() {
-                return Some((tag, Rc::clone(node_rc)));
+                return Some(tag);
             }
         }
         None
