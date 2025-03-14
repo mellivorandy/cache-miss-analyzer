@@ -18,7 +18,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         },
     }
 
-    // handle command line arguments
+    // Handle command line arguments
     let trace_file_name = &args[1];
     let cache_size: u32 = args[2]
         .parse()
@@ -32,7 +32,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut lru_cache = LRUCache::new(cache_size, block_size, set_degree);
 
-    // open file
+    // Open file
     let file = File::open(trace_file_name).expect("Failed to open file\n");
     
     let reader = BufReader::new(file);
@@ -41,7 +41,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let line = line_result?;
         let mem_addr = line.trim();
 
-        // remove prefix and convert hexadecimal to decimal
+        // Remove prefix and convert hexadecimal to decimal
         let no_prefix_addr = mem_addr.trim_start_matches("0x");
         let addr_dec = u32::from_str_radix(&no_prefix_addr, 16).unwrap();
         
@@ -67,7 +67,7 @@ mod tests {
         
         let reader = BufReader::new(file);
 
-        // test args
+        // Change arguments here for different cache configurations
         let mut cache = LRUCache::new(1, 4, 2);
 
         for line_result in reader.lines() {
@@ -90,7 +90,7 @@ mod tests {
         for (i, set) in cache.sets.iter().enumerate() {
             let list = set.debug_list();
             
-            // only print non-empty sets, modify here to print all sets
+            // Only print non-empty sets, modify here to print all sets
             if !list.is_empty() {
                 println!("Set {} => {:?}", i, list);
             }
