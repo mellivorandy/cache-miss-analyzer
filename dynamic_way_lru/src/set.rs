@@ -61,11 +61,20 @@ impl Set {
     pub fn put(&mut self, tag: u32) {
         match self.map.get(&tag) {
             Some(node_rc) => {
-                // Hit: Update node
+                // Hit
                 self.update_node(node_rc.clone());
             }
             None => {
-                // Miss: Insert new node
+                // Miss
+                if self.size >= self.capacity {
+                    if let Some(removed) = self.evict() {
+                        if let NodeData::Real { tag: old_tag, .. } = removed.borrow().data {
+                            self.map.remove(&old_tag);
+                            self.size -= 1;
+                        }
+                    }
+                }
+
                 let new_node = Rc::new(RefCell::new(Node {
                     data: NodeData::Real { tag },
                     next: None,
@@ -76,15 +85,6 @@ impl Set {
                 
                 self.insert_at_front(Rc::clone(&new_node));
                 self.size += 1;
-    
-                if self.size > self.capacity {
-                    if let Some(removed) = self.evict() {
-                        if let NodeData::Real { tag: old_tag, .. } = removed.borrow().data {
-                            self.map.remove(&old_tag);
-                            self.size -= 1;
-                        }
-                    }
-                }
             }
         }
     }
