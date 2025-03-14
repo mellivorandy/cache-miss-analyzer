@@ -1,6 +1,7 @@
-[package]
-name = "cache-miss-analyzer"
-version = "0.1.0"
-edition = "2021"
+[workspace]
+resolver = "2"
 
-[dependencies]
+members = [
+    "dynamic_way_lru",      # Dynamic allocation approach
+    "valid_checking_lru"    # # Preallocated block approach with valid checking
+]
