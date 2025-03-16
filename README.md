@@ -6,8 +6,6 @@
 [<img alt="ci" src="https://github.com/mellivorandy/cache-miss-analyzer/actions/workflows/CI.yml/badge.svg" height="20">](https://github.com/mellivorandy/cache-miss-analyzer/actions)
 [<img alt="license" src="https://img.shields.io/github/license/mellivorandy/cache-miss-analyzer?style=for-the-badge&logo=GITHUB&color=light%20green" height="20">](https://github.com/mellivorandy/cache-miss-analyzer?tab=MIT-1-ov-file#readme)
 
-
-
 <br>
 
 This project implements a **Set-Associative Cache** simulator using an **LRU (Least Recently Used)** replacement policy. It reads a trace file containing memory addresses in hexadecimal and simulates how the cache behaves, eventually reporting the **miss rate**.
@@ -79,81 +77,64 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
     - Without dummy nodes, inserting or removing from the beginning or end of the list would require additional boundary checks.
   
 3. **Valid Bit Mechanism**  
-   - Originally, this project did not preallocate any invalid blocks. Instead, it simply builds a new Node on every miss if `size < capacity`. If `size == capacity` (the set is full), it evicts the least recently used node (via `evict()` method) before inserting the new one.
+   - Originally, this project did not pre-allocate any invalid blocks. Instead, it simply builds a new Node on every miss if `size < capacity`. If `size == capacity` (the set is full), it evicts the least recently used node (via `evict()` method) before inserting the new one.
 
     - In other words, the design omits a `valid = false` state, relying on the condition `size < capacity` to detect free capacity. Each Miss either:
         - Creates a new node if not at capacity, or  
         - Evicts the oldest node if at capacity.
 
-    - According to project requirement, checking the validation of each cache block is needed when accessing. As a result, I modified `get`, `put` and added some helper methods. If a block is `valid=false`, we can fill it without evicting another block; if all blocks are `valid=true`, we perform an LRU eviction.
+    - According to project requirement, checking the validation of each cache block is needed when accessing. As a result, I came up with another solution `valid_checking_lru` by adding some helper methods. If a block is `valid=false`, we can fill it without evicting another block; if all blocks are `valid=true`, we perform an LRU eviction. <br><br>
 
-    - Check out the implementation of `put` method at commit [6d00f29](https://github.com/mellivorandy/cache-miss-analyzer/commit/6d00f29e82e2023f5cf73a92751488cda5d2a2ec) at line 63.
 ---
 
 ## Getting Started <br><br>
 
-### Prerequisites
+The Prerequisites, Building & Running and Test section are placed in both <a href="dynamic_way_lru/README.md">dynamic_way_lru/README.md</a> and <a href="valid_checking_lru/README.md">valid_checking_lru/README.md</a>, check out the details of each.
 
-- [Rust](https://www.rust-lang.org/) (recommended 1.84.1 or higher)
-- A terminal or command prompt to run `cargo`
-<br><br>
 ---
 
-### Building and Running
-
-Clone the repository
-
-```bash
-git clone https://github.com/mellivorandy/cache-miss-analyzer.git
-```
-
-From the project root, run:
-
-```Rust
-cargo build
-```
-
-To execute the program with custom arguments, use the following command:
-
-```Rust
-cargo run -- <trace_file_name> <cache_size> <block_size> <set_degree>
-```
-
-- <trace_file_name>: The path of the trace file to be analyzed.
-- <cache_size>: The total size of the cache (in KByte).
-- <block_size>: The size of each block (in Words).
-- <set_degree>: The associativity (number of blocks per set).
-
-<br>
-
-In this project structure, the trace.txt file is located in cache-miss-analyzer/data, change the path if trace file is moved or new trace files are added.
-
-<br>
-
-Note: If the file path remains unchanged, use the path as given. Simply copy and paste the following command into your terminal:
-
-#### Example command
-
-```Rust
-cargo run data/trace.txt 1024 8 2
-```
-
+## Test Data & Verification <br><br>
+This project includes a large set of test data and sources, generated using Generative AI. To ensure correctness, I compared the AI-generated results with results computed by my project (both dynamic_way_lru and valid_checking_lru). All test cases have passed verification.
 <br>
 
 ---
 
-### Test
+### Test Data & Answer
+- `trace.txt`: Contains 5003 lines of test addresses.
 
-A `[cfg(test)]` module is included, referencing a trace.txt file for unit tests. To run them:
+  - Cache Configuration: User-defined.
 
-```Rust
-cargo test -- --nocapture
-```
+  - Contains a general set of memory addresses for  testing the LRU mechanism.
 
-This prints the non-empty sets.
+  - Users can specify different cache sizes, block sizes, and set degree (associativity) values to observe varying results.
 
-- Change arguments at src/main.rs:71:39 for different cache configurations. <br><br>
-- Remove if expressions at src/main.rs:94:13 as you want to print all sets.
+<br>
+
+- `test_50.txt`: Contains 50 lines of test addresses.
+
+  - Cache Configuration:
+
+    - Cache Size: 1 KBytes
+
+    - Block Size: 16 words
+
+    - Set Degree (Associativity): 2-way
+
+<br>
+
+- `test_100.txt`: Contains 100 lines of test addresses.
+
+  - Cache Configuration:
+
+      - Cache Size: 1 KBytes
+
+      - Block Size: 4 words
+
+      - Set Degree (Associativity): 2-way
+
+<br>
+
+- <a href="data/answer.md">answer.md</a>: Shows the expected results for all test files and the tags in each cache set, useful for verifying correctness. The most frequently accessed tags appear first in each set.
 
 <br>
 
