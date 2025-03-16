@@ -14,7 +14,7 @@ pub struct Node {
 }
 
 pub struct Set {
-    capacity: usize,
+    pub capacity: usize,
     size: usize,
     map: HashMap<u32, Rc<RefCell<Node>>>,
 
@@ -24,7 +24,7 @@ pub struct Set {
 }
 
 impl Set {
-    pub fn new(capacity: usize) -> Self {
+    pub fn new() -> Self {
         let head = Rc::new(RefCell::new(Node {
             data: NodeData::Dummy,
             next: None,
@@ -40,7 +40,7 @@ impl Set {
         head.borrow_mut().next = Some(Rc::clone(&tail));
 
         Set {
-            capacity,
+            capacity: 0,
             size: 0,
             map: HashMap::new(),
             head,

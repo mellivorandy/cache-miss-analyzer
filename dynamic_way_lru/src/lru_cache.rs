@@ -14,8 +14,14 @@ impl LRUCache {
         let cache_block_num = (cache_size << 10) / (block_size_byte as u32);
         let set_num = cache_block_num / (set_degree as u32);
         
+        let capacity_per_set = set_degree;
+
         let sets = (0..set_num)
-            .map(|_| Set::new(set_degree))
+            .map(|_| {
+                let mut set = Set::new();
+                set.capacity = capacity_per_set;
+                set
+            })
             .collect::<Vec<_>>();
 
         LRUCache {
