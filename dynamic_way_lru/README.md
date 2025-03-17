@@ -34,14 +34,14 @@ The Dynamic-Way LRU (Least Recently Used) cache is a memory caching mechanism th
 
 ## Step-by-Step Explanation
 
-### Step 1: Initial State
+### Initial State
 ``Empty Cache Set``: Before any memory accesses, the set only has dummy head and dummy tail. <br>
 
 ![0](../docs/image_dyn/0.png)
 
 <br>
 
-### Step 2: First Access: A1115550
+### First Access: A1115550
 `Miss!` A1115550 is not in the set.
 
 Insert it at the front of the list.
@@ -50,7 +50,7 @@ Insert it at the front of the list.
 
 <br>
 
-### Step 3: Second Access: A1115551
+### Second Access: A1115551
 `Miss!` A1115551 is also missing.
 
 Insert it at the front, shifting A1115550 back.
@@ -59,7 +59,7 @@ Insert it at the front, shifting A1115550 back.
 
 <br>
 
-### Step 4: Third Access: A1115550
+### Third Access: A1115550
 `Hit!` A1115550 is in the set.
 
 Move it to the front.
@@ -68,7 +68,7 @@ Move it to the front.
 
 <br>
 
-### Step 5: Filling Up the Set (Set is Full)
+### Filling Up the Set (Set is Full)
 More blocks (A1115552, A1115553) are accessed and added until the set is full (4-way associativity).
 
 ![0](../docs/image_dyn/4.png)
@@ -77,7 +77,7 @@ The set is now full, next miss will trigger LRU eviction.
 
 <br>
 
-### Step 6: Eviction – A1115560
+### Eviction – Access A1115560
 `Miss!` Because A1115560 is not in the set.
 
 The set is full => Evict LRU block (A1115551).
@@ -88,7 +88,7 @@ Insert A1115560 at the front.
 
 <br>
 
-### Step 7: Another Hit – A1115550
+### Another Hit – A1115550
 `Hit!` A1115550 is in the set.
 
 Move it to the front (MRU).
