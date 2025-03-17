@@ -34,7 +34,155 @@ The Valid-Checking LRU (Least Recently Used) cache is a set-associative cache im
 
 <br>
 
-## Getting Started 
+## Step-by-Step Explanation
+
+### Initial State
+Empty but Preallocated Blocks.
+
+Unlike Dynamic-Way LRU, all blocks are initialized with valid=false at the start.
+
+![0](../docs/image_valid/0.png)
+
+<br>
+
+### First Access: A1115550
+Miss! But there are still invalid blocks available.
+
+Instead of evicting, use an invalid block.
+
+Mark it valid=true and move it to the front.
+
+![0](../docs/image_valid/1.png)
+
+<br>
+
+### Second Access: A1115551
+Miss! But still, there are invalid blocks available.
+
+Use an invalid block, mark it valid, move it to the front.
+
+![0](../docs/image_valid/2.png)
+
+<br>
+
+### Third Access - A1115550
+Hit! A1115550 is already in the set.
+
+Move it to the front (most recently used).
+
+![0](../docs/image_valid/3.png)
+
+<br>
+
+### Filling Up the Set (Set is Full)
+After accessing A1115552 and A1115553, the set is full.
+
+Every block is now valid=true, so next miss must trigger an eviction.
+
+![0](../docs/image_valid/4.png)
+
+<br>
+
+### Access A1115560 (Eviction required)
+Miss! No invalid blocks remain.
+
+Evict LRU block (A1115551, closest to Dummy Tail).
+
+Replace it with A1115560 and move to the front.
+
+![0](../docs/image_valid/5.png)
+
+<br>
+
+### Another Hit – A1115550
+`Hit!` A1115550 is in the set.
+
+Move it to the front (MRU).
+
+![0](../docs/image_valid/6.png)
+
+<br>
+
+## Time Complexity Analysis
+
+### Lookup (Hit/Miss Checking)
+
+- Using HashMap<tag, Node>, checking if a block is present takes `O(1)`.
+
+<br>
+
+### Insert New Block (On Miss)
+
+Two scenarios for handling a miss:
+
+1. Use an invalid block: O(N), worst-case requires searching all set entries.
+<br>
+2. Evict LRU block (if all are valid): O(1).
+<br><br>
+
+**Case 1**: Use an invalid block
+Search for a valid=false block: O(N) (N = set_degree, worst case is that all blocks are valid).
+Update block's tag and set valid=true: O(1).
+Move block to head (most recently used): O(1).
+
+Overall: O(N) + O(1) + O(1) = `O(N)`
+(Worst case: scanning all blocks in the set to find an invalid one.)
+
+<br>
+
+**Case 2**: Evict LRU block (All blocks are valid=true)
+Find LRU block (always at the tail): O(1).
+Replace with new block, update tag, set valid=true: O(1).
+Move to head (most recently used): O(1).
+
+Overall: O(1) + O(1) + O(1) = `O(1)`
+
+<br>
+
+### Move Block to Head (On Hit)
+
+- Find in HashMap: O(1).
+
+- Remove from current position: O(1).
+
+- Insert at the front: O(1).
+
+Overall: O(1) + O(1) + O(1) = `O(1)`.
+
+<br>
+
+### Eviction (When the set is full)
+
+- Identify LRU block (always at the tail): O(1).
+
+- Remove from doubly linked list: O(1).
+
+- Remove from HashMap: O(1).
+
+- Insert new block at head: O(1).
+
+Overall: O(1) + O(1) + O(1) + O(1) = `O(1)`.
+
+<br>
+
+### Summary
+
+|   Operation   |  Complexity  |
+|---------------|--------------|
+|Lookup	        |     O(1)     |
+|Insert 	    |     O(N)     |
+|Move to Head 	|     O(1)     |
+|Eviction       |	  O(1)     |
+
+<br>
+
+**Overall Complexity: `O(N)`.**
+
+<br>
+
+---
+
+## Getting Started <br><br>
 
 ### Prerequisites
 
