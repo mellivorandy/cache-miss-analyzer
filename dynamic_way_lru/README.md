@@ -32,6 +32,132 @@ The Dynamic-Way LRU (Least Recently Used) cache is a memory caching mechanism th
 
 <br>
 
+## Step-by-Step Explanation
+
+### Step 1: Initial State
+``Empty Cache Set``: Before any memory accesses, the set only has dummy head and dummy tail. <br>
+
+![0](../docs/image_dyn/0.png)
+
+<br>
+
+### Step 2: First Access: A1115550
+`Miss!` A1115550 is not in the set.
+
+Insert it at the front of the list.
+
+![0](../docs/image_dyn/1.png)
+
+<br>
+
+### Step 3: Second Access: A1115551
+`Miss!` A1115551 is also missing.
+
+Insert it at the front, shifting A1115550 back.
+
+![0](../docs/image_dyn/2.png)
+
+<br>
+
+### Step 4: Third Access: A1115550
+`Hit!` A1115550 is in the set.
+
+Move it to the front.
+
+![0](../docs/image_dyn/3.png)
+
+<br>
+
+### Step 5: Filling Up the Set (Set is Full)
+More blocks (A1115552, A1115553) are accessed and added until the set is full (4-way associativity).
+
+![0](../docs/image_dyn/4.png)
+
+The set is now full, next miss will trigger LRU eviction.
+
+<br>
+
+### Step 6: Eviction – A1115560
+`Miss!` Because A1115560 is not in the set.
+
+The set is full => Evict LRU block (A1115551).
+
+Insert A1115560 at the front.
+
+![0](../docs/image_dyn/5.png)
+
+<br>
+
+### Step 7: Another Hit – A1115550
+`Hit!` A1115550 is in the set.
+
+Move it to the front (MRU).
+
+![0](../docs/image_dyn/6.png)
+
+<br>
+
+## Time Complexity Analysis
+
+### Lookup (Hit/Miss Checking)
+
+- Using HashMap<tag, Node>, checking if a block is present takes `O(1)`.
+
+<br>
+
+### Insert New Block (On Miss)
+
+- Insert at the head of the doubly linked list (O(1)).
+
+- Insert into HashMap (O(1)).
+
+Overall: O(1) + O(1) = `O(1)`.
+
+<br>
+
+### Move Block to Head (On Hit)
+
+- Find in HashMap: O(1).
+
+- Remove from current position: O(1).
+
+- Insert at the front: O(1).
+
+Overall: O(1) + O(1) + O(1) = `O(1)`.
+
+<br>
+
+### Eviction (When the set is full)
+
+- Identify LRU block (always at the tail): O(1).
+
+- Remove from doubly linked list: O(1).
+
+- Remove from HashMap: O(1).
+
+- Insert new block at head: O(1).
+
+Overall: O(1) + O(1) + O(1) + O(1) = `O(1)`.
+
+<br>
+
+### Summary
+
+|   Operation   |  Complexity  |
+|---------------|--------------|
+|Lookup	        |     O(1)     |
+|Insert 	    |     O(1)     |
+|Move to Head 	|     O(1)     |
+|Eviction       |	  O(1)     |
+
+<br>
+
+**Overall Complexity: O(1).**
+
+<br>
+
+---
+
 ## Getting Started <br><br>
 
 ### Prerequisites
@@ -105,3 +231,7 @@ This prints the non-empty sets.
 - Remove if expressions at dynamic_way_lru/src/main.rs:92:13 as you want to print all sets.
 
 <br>
+
+## Acknowledgments
+  
+I sincerely appreciate the incredible work behind [Mermaid.js](https://mermaid.js.org/), an open-source diagramming tool that makes visualizing complex ideas effortless. Huge thanks to the developers and contributors who maintain and improve this fantastic project!  
