@@ -77,7 +77,7 @@ The set is now full, next miss will trigger LRU eviction.
 
 <br>
 
-### Eviction – Access A1115560
+### Access A1115560 again (Eviction required)
 `Miss!` Because A1115560 is not in the set.
 
 The set is full => Evict LRU block (A1115551).
