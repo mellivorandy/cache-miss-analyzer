@@ -152,7 +152,7 @@ Overall: O(1) + O(1) + O(1) + O(1) = `O(1)`.
 
 <br>
 
-**Overall Complexity: O(1).**
+**Overall Complexity: `O(1)`.**
 
 <br>
 
