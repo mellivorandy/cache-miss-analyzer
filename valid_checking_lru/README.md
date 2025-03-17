@@ -255,3 +255,7 @@ This prints the non-empty sets.
 - Remove if expressions at valid_checking_lru/src/main.rs:92:13 as you want to print all sets.
 
 <br>
+
+## Acknowledgments
+  
+I sincerely appreciate the incredible work behind [Mermaid.js](https://mermaid.js.org/), an open-source diagramming tool that makes visualizing complex ideas effortless. Huge thanks to the developers and contributors who maintain and improve this fantastic project!
