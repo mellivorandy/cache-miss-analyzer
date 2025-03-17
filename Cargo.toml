@@ -3,5 +3,5 @@ resolver = "2"
 
 members = [
     "dynamic_way_lru",      # Dynamic allocation approach
-    "valid_checking_lru"    # # Preallocated block approach with valid checking
+    "valid_checking_lru"    # Pre-allocated block approach
 ]
