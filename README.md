@@ -89,7 +89,7 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 
 ## Getting Started <br><br>
 
-The Prerequisites, Building & Running and Test section are placed in both <a href="dynamic_way_lru/README.md">dynamic_way_lru/README.md</a> and <a href="valid_checking_lru/README.md">valid_checking_lru/README.md</a>, check out the details of each.
+The Prerequisites, Building & Running and Test section are placed in both <a href="https://github.com/mellivorandy/cache-miss-analyzer/blob/main/dynamic_way_lru/README.md">dynamic_way_lru/README.md</a> and <a href="https://github.com/mellivorandy/cache-miss-analyzer/blob/main/valid_checking_lru/README.md">valid_checking_lru/README.md</a>, check out the details of each.
 
 ---
 
