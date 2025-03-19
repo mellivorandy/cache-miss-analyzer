@@ -134,7 +134,7 @@ This project includes a large set of test data and sources, generated using Gene
 
 <br>
 
-- <a href="data/answer.md">answer.md</a>: Shows the expected results for all test files and the tags in each cache set, useful for verifying correctness. The most frequently accessed tags appear first in each set.
+- <a href="[data/answer.md](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/data/answer.md)">answer.md</a>: Shows the expected results for all test files and the tags in each cache set, useful for verifying correctness. The most frequently accessed tags appear first in each set.
 
 <br>
 
