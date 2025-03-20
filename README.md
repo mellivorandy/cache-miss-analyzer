@@ -33,27 +33,27 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 
 - Compute the number of sets (each set holds set_degree (N-Way) blocks):
 <br><br>
-![Formula](https://latex.codecogs.com/png.latex?\text{Number%20of%20Sets}%20=%20\frac{\text{Total%20Cache%20Blocks}}{\text{Set%20Degree}})
+![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/1.png)
 <br><br>
 
 - Each block contains multiple bytes, so we determine which memory block the address belongs to:
 <br><br>
-![Formula](https://latex.codecogs.com/png.latex?\text{Memory%20Block%20Index}%20=%20\frac{\text{Memory%20Address}}{\text{Block%20Size}})
+![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/2.png)
 <br><br>
 
 - Determine where in the cache this block should be mapped:
 <br><br>
-![Formula](https://latex.codecogs.com/png.latex?\text{Set%20Index}%20=%20\text{Memory%20Block%20Index}%20\mod%20\text{Number%20of%20Sets})
+![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/3.png)
 <br><br>
 
 - Compute the tag:
 <br><br>
-![Formula](https://latex.codecogs.com/png.latex?\text{Tag}%20=%20\frac{\text{Memory%20Block%20Index}}{\text{Number%20of%20Sets}})
+![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/4.png)
 <br><br>
 
 - After processing all memory accesses in trace file, compute:
 <br><br>
-![Formula](https://latex.codecogs.com/png.latex?\text{Miss%20Rate}%20=%20\frac{\text{Total%20Misses}}{\text{Total%20Memory%20Accesses}}%20\times%20100\%25)
+![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/5.png)
 <br><br>
 
 2. **HashMap + Doubly Linked List**  
