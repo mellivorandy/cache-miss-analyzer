@@ -28,7 +28,7 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 
 - Compute the total number of cache blocks:
 <br><br>
-![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/0.png)
+![Formula](https://raw.githubusercontent.com/mellivorandy/cache-miss-analyzer/refs/heads/main/docs/image_formulae/0.png)
 <br><br>
 
 - Compute the number of sets (each set holds set_degree (N-Way) blocks):
