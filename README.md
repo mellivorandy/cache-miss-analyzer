@@ -33,27 +33,27 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 
 - Compute the number of sets (each set holds set_degree (N-Way) blocks):
 <br><br>
-![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/1.png)
+![Formula](https://raw.githubusercontent.com/mellivorandy/cache-miss-analyzer/refs/heads/main/docs/image_formulae/1.png)
 <br><br>
 
 - Each block contains multiple bytes, so we determine which memory block the address belongs to:
 <br><br>
-![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/2.png)
+![Formula](https://raw.githubusercontent.com/mellivorandy/cache-miss-analyzer/refs/heads/main/docs/image_formulae/2.png)
 <br><br>
 
 - Determine where in the cache this block should be mapped:
 <br><br>
-![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/3.png)
+![Formula](https://raw.githubusercontent.com/mellivorandy/cache-miss-analyzer/refs/heads/main/docs/image_formulae/3.png)
 <br><br>
 
 - Compute the tag:
 <br><br>
-![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/4.png)
+![Formula](https://raw.githubusercontent.com/mellivorandy/cache-miss-analyzer/refs/heads/main/docs/image_formulae/4.png)
 <br><br>
 
 - After processing all memory accesses in trace file, compute:
 <br><br>
-![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/5.png)
+![Formula](https://raw.githubusercontent.com/mellivorandy/cache-miss-analyzer/refs/heads/main/docs/image_formulae/5.png)
 <br><br>
 
 2. **HashMap + Doubly Linked List**  
