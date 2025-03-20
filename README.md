@@ -28,7 +28,7 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 
 - Compute the total number of cache blocks:
 <br><br>
-![Formula](https://latex.codecogs.com/png.latex?%5Ctext%7BTotal%20Cache%20Blocks%7D%20%3D%20%5Cfrac%7B%5Ctext%7BCache%20Size%7D%7D%7B%5Ctext%7BBlock%20Size%7D%7D)
+![Formula](https://github.com/mellivorandy/cache-miss-analyzer/blob/main/docs/image_formulae/0.png)
 <br><br>
 
 - Compute the number of sets (each set holds set_degree (N-Way) blocks):
@@ -166,4 +166,4 @@ For major changes, please open an issue first.
 
 ### License
 
-This project is licensed under <a href="LICENSE">MIT license</a>.
+This project is licensed under <a href="https://github.com/mellivorandy/cache-miss-analyzer?tab=MIT-1-ov-file#readme">MIT license</a>.
