@@ -1,3 +1,8 @@
+---
+layout: default
+title: Dynamic Way LRU
+---
+
 # Dynamic-Way LRU &mdash; a dynamic allocation approach
 
 <br>

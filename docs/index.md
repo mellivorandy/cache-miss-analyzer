@@ -172,4 +172,4 @@ For major changes, please open an issue first.
 
 ### License
 
-This project is licensed under <a href="https://github.com/mellivorandy/cache-miss-analyzer?tab=MIT-1-ov-file">MIT license</a>.
+This project is licensed under <a href="https://github.com/mellivorandy/cache-miss-analyzer?tab=MIT-1-ov-file#readme">MIT license</a>.

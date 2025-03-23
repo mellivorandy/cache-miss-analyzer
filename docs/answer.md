@@ -1,3 +1,8 @@
+---
+layout: default
+title: Answer
+---
+
 # Answer
 
 This document contains the expected results for all test cases, helping to verify the correctness of implementations. The results include the miss rate for each test case and the tags ordered by access frequency in each cache set.

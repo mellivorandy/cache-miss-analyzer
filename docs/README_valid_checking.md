@@ -1,3 +1,8 @@
+---
+layout: default
+title: Valid Checking LRU
+---
+
 # Valid-Checking LRU &mdash; a preallocated block management approach
 
 <br>
