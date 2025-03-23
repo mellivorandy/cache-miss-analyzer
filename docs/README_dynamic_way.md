@@ -42,7 +42,7 @@ The Dynamic-Way LRU (Least Recently Used) cache is a memory caching mechanism th
 ### Initial State
 ``Empty Cache Set``: Before any memory accesses, the set only has dummy head and dummy tail. <br>
 
-![0](cache-miss-analyzer/image_dyn/0.png)
+![0](image_dyn/0.png)
 
 <br>
 
