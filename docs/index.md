@@ -95,7 +95,7 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 
 ## Getting Started <br><br>
 
-The Prerequisites, Building & Running and Test section are placed in both <a href="README_dynamic_way.md">dynamic_way_lru/README.md</a> and <a href="README_valid_checking.md">valid_checking_lru/README.md</a>, check out the details of each.
+The Prerequisites, Building & Running and Test section are placed in both <a href="README_dynamic_way.html">dynamic_way_lru/README.md</a> and <a href="README_valid_checking.html">valid_checking_lru/README.md</a>, check out the details of each.
 
 ---
 
@@ -140,7 +140,7 @@ This project includes a large set of test data and sources, generated using Gene
 
 <br>
 
-- <a href="answer.md">answer.md</a>: Shows the expected results for all test files and the tags in each cache set, useful for verifying correctness. The most frequently accessed tags appear first in each set.
+- <a href="answer.html">answer.md</a>: Shows the expected results for all test files and the tags in each cache set, useful for verifying correctness. The most frequently accessed tags appear first in each set.
 
 <br>
 
