@@ -1,9 +1,3 @@
----
-layout: default
-title: Cache Miss Analyzer
-google-site-verification: 9ONPP-flKrLEFZT4vLcCFgmYIL_5V0XnBjJk3RAcBD0
----
-
 # cache-miss-analyzer &mdash; a high-performance cache simulator with LRU policy
 
 <br>
