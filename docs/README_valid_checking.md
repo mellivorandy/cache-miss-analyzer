@@ -46,7 +46,7 @@ Empty but Preallocated Blocks.
 
 Unlike Dynamic-Way LRU, all blocks are initialized with valid=false at the start.
 
-![0](../docs/image_valid/0.png)
+![0](image_valid/0.png)
 
 <br>
 
@@ -57,7 +57,7 @@ Instead of evicting, use an invalid block.
 
 Mark it valid=true and move it to the front.
 
-![0](../docs/image_valid/1.png)
+![0](image_valid/1.png)
 
 <br>
 
@@ -66,7 +66,7 @@ Miss! But still, there are invalid blocks available.
 
 Use an invalid block, mark it valid, move it to the front.
 
-![0](../docs/image_valid/2.png)
+![0](image_valid/2.png)
 
 <br>
 
@@ -75,7 +75,7 @@ Hit! A1115550 is already in the set.
 
 Move it to the front (most recently used).
 
-![0](../docs/image_valid/3.png)
+![0](image_valid/3.png)
 
 <br>
 
@@ -84,7 +84,7 @@ After accessing A1115552 and A1115553, the set is full.
 
 Every block is now valid=true, so next miss must trigger an eviction.
 
-![0](../docs/image_valid/4.png)
+![0](image_valid/4.png)
 
 <br>
 
@@ -95,7 +95,7 @@ Evict LRU block (A1115551, closest to Dummy Tail).
 
 Replace it with A1115560 and move to the front.
 
-![0](../docs/image_valid/5.png)
+![0](image_valid/5.png)
 
 <br>
 
@@ -104,7 +104,7 @@ Replace it with A1115560 and move to the front.
 
 Move it to the front (MRU).
 
-![0](../docs/image_valid/6.png)
+![0](image_valid/6.png)
 
 <br>
 

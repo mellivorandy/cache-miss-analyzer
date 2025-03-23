@@ -42,7 +42,7 @@ The Dynamic-Way LRU (Least Recently Used) cache is a memory caching mechanism th
 ### Initial State
 ``Empty Cache Set``: Before any memory accesses, the set only has dummy head and dummy tail. <br>
 
-![0](../docs/image_dyn/0.png)
+![0](image_dyn/0.png)
 
 <br>
 
@@ -51,7 +51,7 @@ The Dynamic-Way LRU (Least Recently Used) cache is a memory caching mechanism th
 
 Insert it at the front of the list.
 
-![0](../docs/image_dyn/1.png)
+![0](image_dyn/1.png)
 
 <br>
 
@@ -60,7 +60,7 @@ Insert it at the front of the list.
 
 Insert it at the front, shifting A1115550 back.
 
-![0](../docs/image_dyn/2.png)
+![0](image_dyn/2.png)
 
 <br>
 
@@ -69,14 +69,14 @@ Insert it at the front, shifting A1115550 back.
 
 Move it to the front.
 
-![0](../docs/image_dyn/3.png)
+![0](image_dyn/3.png)
 
 <br>
 
 ### Filling Up the Set (Set is Full)
 More blocks (A1115552, A1115553) are accessed and added until the set is full (4-way associativity).
 
-![0](../docs/image_dyn/4.png)
+![0](image_dyn/4.png)
 
 The set is now full, next miss will trigger LRU eviction.
 
@@ -89,7 +89,7 @@ The set is full => Evict LRU block (A1115551).
 
 Insert A1115560 at the front.
 
-![0](../docs/image_dyn/5.png)
+![0](image_dyn/5.png)
 
 <br>
 
@@ -98,7 +98,7 @@ Insert A1115560 at the front.
 
 Move it to the front (MRU).
 
-![0](../docs/image_dyn/6.png)
+![0](image_dyn/6.png)
 
 <br>
 
