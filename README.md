@@ -60,7 +60,7 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
    - **HashMap**  
      - Maps a **tag** inside that set to a node in the doubly linked list. 
  
-     - This allows O(1) lookup to find whether a memory block is currently in the cache.  
+     - This allows $O(1)$ lookup to find whether a memory block is currently in the cache.  
    
    - **Doubly Linked List**  
      - Each set keeps a doubly linked list of its N blocks.  
@@ -69,7 +69,7 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
      
      - On a **hit**, the block is moved to the head; on a **miss**, if the set is full, the tail block is evicted (LRU), otherwise an empty slot or invalid block is used.
 
-     - Why using a doubly linked list? Because when tracking usage order in the lists, removing a node from the middle or moving a node to the front are needed frequently. A doubly linked list allows you to perform the operations mentioned above in O(1). By contrast, a singly linked list requires O(n) time to find the predecessor before removal.
+     - Why using a doubly linked list? Because when tracking usage order in the lists, removing a node from the middle or moving a node to the front are needed frequently. A doubly linked list allows you to perform the operations mentioned above in $O(1)$. By contrast, a singly linked list requires $O(n)$ time to find the predecessor before removal.
     
     **Dummy Head and Tail**  
     - To simplify insertions and deletions, each set maintains two dummy nodes, namely the **dummy head** and the **dummy tail**. The dummy head ensures that there is always a first node (most recently used item), whereas the dummy tail ensures that there is always a last node (least recently used item). 
