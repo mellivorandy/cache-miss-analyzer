@@ -112,7 +112,7 @@ Move it to the front (MRU).
 
 ### Lookup (Hit/Miss Checking)
 
-- Using `HashMap<tag, Node>`, checking if a block is present takes $O(1)$.
+- Using `HashMap<tag, Node>`, checking if a block is present takes `O(1)`.
 
 <br>
 
@@ -120,19 +120,19 @@ Move it to the front (MRU).
 
 Two scenarios for handling a miss:
 
-1. Use an invalid block: $O(N)$, worst-case requires searching all set entries.
+1. Use an invalid block: O(N), worst-case requires searching all set entries.
 
-2. Evict LRU block (if all are valid): $O(1)$.
+2. Evict LRU block (if all are valid): O(1).
 
 <br>
 
 **Case 1**: Use an invalid block
-Search for a valid=false block: $O(N)$ (N = set_degree, worst case is that all blocks are valid).
-Update block's tag and set valid=true: $O(1)$.
-Move block to head (most recently used): $O(1)$.
+Search for a valid=false block: O(N) (N = set_degree, worst case is that all blocks are valid).
+Update block's tag and set valid=true: O(1).
+Move block to head (most recently used): O(1).
 
-Overall: $O(N) + O(1) + O(1) =`O(N)$.
-(Worst case: scanning all blocks in the set to find an invalid one)
+Overall: O(N) + O(1) + O(1) = `O(N)`
+(Worst case: scanning all blocks in the set to find an invalid one.)
 
 <br>
 
@@ -141,33 +141,33 @@ Find LRU block (always at the tail): O(1).
 Replace with new block, update tag, set valid=true: O(1).
 Move to head (most recently used): O(1).
 
-Overall: $O(1) + O(1) + O(1) = O(1)$.
+Overall: O(1) + O(1) + O(1) = `O(1)`
 
 <br>
 
 ### Move Block to Head (On Hit)
 
-- Find in HashMap: $O(1)$.
+- Find in HashMap: O(1).
 
-- Remove from current position: $O(1)$.
+- Remove from current position: O(1).
 
-- Insert at the front: $O(1)$.
+- Insert at the front: O(1).
 
-Overall: $O(1) + O(1) + O(1) = O(1)$.
+Overall: O(1) + O(1) + O(1) = `O(1)`.
 
 <br>
 
 ### Eviction (When the set is full)
 
-- Identify LRU block (always at the tail): $O(1)$.
+- Identify LRU block (always at the tail): O(1).
 
-- Remove from doubly linked list: $O(1)$.
+- Remove from doubly linked list: O(1).
 
-- Remove from HashMap: $O(1)$.
+- Remove from HashMap: O(1).
 
-- Insert new block at head: $O(1)$.
+- Insert new block at head: O(1).
 
-Overall: $O(1) + O(1) + O(1) + O(1) = O(1)$.
+Overall: O(1) + O(1) + O(1) + O(1) = `O(1)`.
 
 <br>
 
@@ -175,10 +175,10 @@ Overall: $O(1) + O(1) + O(1) + O(1) = O(1)$.
 
 |   Operation   |  Complexity  |
 |---------------|--------------|
-|Lookup	        |    $O(1)$    |
-|Insert 	    |    $O(N)$    |
-|Move to Head 	|    $O(1)$    |
-|Eviction       |	 $O(1)$    |
+|Lookup	        |     O(1)     |
+|Insert 	    |     O(N)     |
+|Move to Head 	|     O(1)     |
+|Eviction       |	  O(1)     |
 
 <br>
 
