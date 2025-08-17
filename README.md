@@ -71,10 +71,10 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 
      - Why using a doubly linked list? Because when tracking usage order in the lists, removing a node from the middle or moving a node to the front are needed frequently. A doubly linked list allows you to perform the operations mentioned above in $O(1)$. By contrast, a singly linked list requires $O(n)$ time to find the predecessor before removal.
     
-    **Dummy Head and Tail**  
-    - To simplify insertions and deletions, each set maintains two dummy nodes, namely the **dummy head** and the **dummy tail**. The dummy head ensures that there is always a first node (most recently used item), whereas the dummy tail ensures that there is always a last node (least recently used item). 
+   - **Dummy Head and Tail**  
+      - To simplify insertions and deletions, each set maintains two dummy nodes, namely the **dummy head** and the **dummy tail**. The dummy head ensures that there is always a first node (most recently used item), whereas the dummy tail ensures that there is always a last node (least recently used item). 
       
-    - Without dummy nodes, inserting or removing from the beginning or end of the list would require additional boundary checks.
+      - Without dummy nodes, inserting or removing from the beginning or end of the list would require additional boundary checks.
   
 3. **Valid Bit Mechanism**  
    - Originally, this project did not pre-allocate any invalid blocks. Instead, it simply builds a new Node on every miss if `size < capacity`. If `size == capacity` (the set is full), it evicts the least recently used node (via `evict()` method) before inserting the new one.
@@ -85,13 +85,11 @@ This project implements a **Set-Associative Cache** simulator using an **LRU (Le
 
     - According to project requirement, checking the validation of each cache block is needed when accessing. As a result, I came up with another solution `valid_checking_lru` by adding some helper methods. If a block is `valid=false`, we can fill it without evicting another block; if all blocks are `valid=true`, we perform an LRU eviction. <br><br>
 
----
-
 ## Getting Started
 
 The Prerequisites, Building & Running and Test section are placed in both <a href="dynamic_way_lru/README.md">dynamic_way_lru/README.md</a> and <a href="valid_checking_lru/README.md">valid_checking_lru/README.md</a>, check out the details of each.
 
----
+<br>
 
 ## Test Data & Verification
 
@@ -139,18 +137,15 @@ This project includes a large set of test data and sources, generated using Gene
 
 <br>
 
----
-
-### Use Cases & Applications
+## Use Cases & Applications
 
 - Computer Architecture Studies: Helps understand cache memory behavior and performance implications of different cache configurations.
-<br><br>
+
 - Performance Benchmarking: Useful for analyzing memory access patterns and optimizing software performance.
-<br><br>
 
----
+<br>
 
-### Contributing
+## Contributing
 
 Contributions are welcome!  
 
@@ -163,8 +158,6 @@ For major changes, please open an issue first.
 
 <br>
 
----
-
-### License
+## License
 
 This project is licensed under <a href="LICENSE">MIT license</a>.
